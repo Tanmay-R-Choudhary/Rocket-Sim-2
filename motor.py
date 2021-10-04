@@ -78,3 +78,4 @@ class Motor:
             print("Use 'plot_thrust_curve' or 'plot_acceleration_curve' to generate plot data first!")
         else:
             plt.show()
+            self.is_plot_available = False
