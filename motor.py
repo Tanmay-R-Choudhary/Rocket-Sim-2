@@ -4,34 +4,18 @@ import matplotlib.pyplot as plt
 plt.style.use("dark_background")
 
 
-def _round_decimal_down(number):
-    decimal_point_index = str(float(number)).index('.')
-    num = str(number)[0:decimal_point_index + 2]
-    return float(num)
-
-
-def _round_decimal_up(number):
-    decimal_point_index = str(float(number)).index('.')
-    num = str(number)[0:decimal_point_index + 2]
-    return round(float(num) + 0.1, 1)
-
-
 def _fill_thrust_gaps(time_array, thrust_array):
     time = np.array([])
     thrust = np.array([])
 
-    for idx in range(0, len(time_array) - 1):
-        x1, y1, x2, y2 = time_array[idx], thrust_array[idx], time_array[idx + 1], thrust_array[idx + 1]
-        gradient = (y2 - y2) / (x2 - x1)
-        temp_time_array = np.linspace(
-            _round_decimal_down(x1),
-            _round_decimal_up(x2),
-            int((_round_decimal_down(x2) - _round_decimal_up(x1)) * 10 + 1)
-        )
-        temp_thrust_array = (gradient * temp_time_array) + (y1 - gradient * x1)
+    temp_time_array = list(range(int(time_array[0] * 10), 1 + int(time_array[-1] * 10)))
+    temp_time_array = [i / 10 for i in temp_time_array]
+    temp_time_array = np.array(temp_time_array)
 
-        time = np.append(time, temp_time_array)
-        thrust = np.append(thrust, temp_thrust_array)
+    temp_thrust_array = np.interp(temp_time_array, time_array, thrust_array)
+
+    time = np.append(time, temp_time_array)
+    thrust = np.append(thrust, temp_thrust_array)
 
     return time.reshape(1, len(time)), thrust.reshape(1, len(thrust))
 
@@ -48,7 +32,7 @@ class Motor:
         thrust = np.repeat(total_impulse / burn_time, len(time[0]))
         thrust = thrust.reshape(1, len(thrust))
         mass_flow_rate = propellant_mass / burn_time
-        mass = total_mass - time * mass_flow_rate
+        mass = total_mass - time[0] * mass_flow_rate
 
         self.time = np.copy(time)
         self.thrust = np.copy(thrust)
