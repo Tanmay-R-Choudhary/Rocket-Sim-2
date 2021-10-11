@@ -23,7 +23,7 @@ def _fill_thrust_gaps(time_array, thrust_array):
 class Motor:
     def __init__(self):
         self.time, self.thrust, self.mass_flow_rate, self.mass = None, None, None, None
-        self.is_plot_available = False
+        self.is_plot_available, self.is_defined = False, False
 
     def define_with_constant_values(self, total_impulse: float, burn_time: float, total_mass: float,
                                     propellant_mass: float) -> None:
@@ -39,6 +39,7 @@ class Motor:
         self.thrust = np.copy(thrust)
         self.mass_flow_rate = mass_flow_rate
         self.mass = np.copy(mass)
+        self.is_defined = True
 
         del time, thrust, mass_flow_rate, mass
 
@@ -53,25 +54,26 @@ class Motor:
         self.mass = np.copy(mass)
         self.time = np.copy(time)
         self.thrust = np.copy(thrust)
+        self.is_defined = True
 
         del time, thrust, mass_flow_rate, mass
 
     def plot_thrust_curve(self):
-        if self.time is None or self.thrust is None or self.mass_flow_rate is None or self.mass is None:
+        if self.is_defined is False:
             print("Define motor parameters with 'define_with_constant_values' or 'define_with_variable_values' method!")
         else:
             plt.plot(self.time[0], self.thrust[0])
             self.is_plot_available = True
 
     def plot_acceleration_curve(self):
-        if self.time is None or self.thrust is None or self.mass_flow_rate is None or self.mass is None:
+        if self.is_defined is False:
             print("Define motor parameters with 'define_with_constant_values' or 'define_with_variable_values' method!")
         else:
             plt.plot(self.time[0], (self.thrust[0] - self.mass * 9.81) / self.mass)
             self.is_plot_available = True
 
     def show_plot(self):
-        if self.time is None or self.thrust is None or self.mass_flow_rate is None or self.mass is None:
+        if self.is_defined is False:
             print("Define motor parameters with 'define_with_constant_values' or 'define_with_variable_values' method!")
 
         if self.is_plot_available is False:
