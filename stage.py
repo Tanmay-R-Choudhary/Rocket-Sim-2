@@ -13,18 +13,13 @@ class Booster:
 
 
 class Stage:
-    def __init__(self, stage_number, core_booster, *args):
+    def __init__(self, stage_number, core_booster, side_booster=None, num_side_booster=None):
         assert type(core_booster) == Booster, "The parameter core_booster MUST be of type Booster"
         assert core_booster.is_defined is True, "Define booster mass and motor"
 
         self.core_stage = core_booster
 
-        for booster in args:
-            assert type(booster) == Booster, "The parameter side booster list MUST have items of type Booster"
-            assert booster.is_defined is True, "Define all side boosters completely"
-
-        self.side_boosters = [booster for booster in args]
-
+        self.side_booster = side_booster
+        self.num_side_boosters = num_side_booster
         self.stage_number = stage_number
-
         self.is_defined = True

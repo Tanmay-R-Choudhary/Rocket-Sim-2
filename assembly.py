@@ -3,7 +3,7 @@ from .stage import Stage
 
 class RocketBody:
     def __init__(self):
-        self.mass, self.stages, self.is_defined = None, None, False
+        self.mass, self.stages, self.components, self.is_defined = None, None, None, False
 
     def add_stage(self, *args):
         for i, stage in enumerate(args):
@@ -13,5 +13,5 @@ class RocketBody:
 
         self.stages = [stage for stage in args]
 
-    def add_components(self):
-        pass
+    def add_components(self, *args):
+        self.components = [component for component in args]
