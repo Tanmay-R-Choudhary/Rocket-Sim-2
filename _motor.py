@@ -34,6 +34,7 @@ class Motor:
         thrust = thrust.reshape(1, len(thrust))
         mass_flow_rate = propellant_mass / burn_time
         mass = total_mass - time[0] * mass_flow_rate
+        mass = mass.reshape(1, len(mass))
 
         self.time = np.copy(time)
         self.thrust = np.copy(thrust)
@@ -49,6 +50,7 @@ class Motor:
         time, thrust = _fill_thrust_gaps(time_array, thrust_array)
         mass_flow_rate = propellant_mass / time_array[-1]
         mass = total_mass - time[0] * mass_flow_rate
+        mass = mass.reshape(1, len(mass))
 
         self.mass_flow_rate = mass_flow_rate
         self.mass = np.copy(mass)

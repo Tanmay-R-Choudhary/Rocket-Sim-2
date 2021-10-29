@@ -1,4 +1,4 @@
-from .stage import Stage
+from ._stage import Stage
 
 
 class RocketBody:
@@ -12,6 +12,7 @@ class RocketBody:
             assert stage.stage_number is not None, "Define stage number in stage {}".format(i + 1)
 
         self.stages = [stage for stage in args]
+        self.stages.sort(key=lambda x: x.stage_number)
 
     def add_components(self, *args):
         self.components = [component for component in args]

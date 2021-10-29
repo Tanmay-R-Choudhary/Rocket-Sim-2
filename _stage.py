@@ -1,4 +1,4 @@
-from .motor import Motor
+from ._motor import Motor
 
 
 class Booster:
