@@ -71,7 +71,7 @@ class Motor:
         if self.is_defined is False:
             print("Define motor parameters with 'define_with_constant_values' or 'define_with_variable_values' method!")
         else:
-            plt.plot(self.time[0], (self.thrust[0] - self.mass * 9.81) / self.mass)
+            plt.plot(self.time[0], (self.thrust[0] - self.mass[0] * 9.81) / self.mass[0])
             self.is_plot_available = True
 
     def show_plot(self):
