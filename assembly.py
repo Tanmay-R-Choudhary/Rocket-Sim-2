@@ -1,4 +1,4 @@
-from ._stage import Stage
+from .stage import Stage
 
 
 class RocketBody:

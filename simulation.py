@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from ._functions import *
+from .functions import *
 
 
 class Simulation:
