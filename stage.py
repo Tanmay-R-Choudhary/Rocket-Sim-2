@@ -18,7 +18,6 @@ class Stage:
         assert core_booster.is_defined is True, "Define booster mass and motor"
 
         self.core_stage = core_booster
-
         self.side_booster = side_booster
         self.num_side_boosters = num_side_booster
         self.stage_number = stage_number
